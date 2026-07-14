@@ -1,0 +1,36 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+backend/.env
+
+# Python
+backend/.venv/
+backend/__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Runtime state and diagnostic data
+backend/context_history/
+backend/tmp/
+/tmp/
+/output/
+*.sqlite
+*.sqlite3
+*.db
+*.log
+*.pid
+
+# Uploaded or generated media
+backend/uploads/
+backend/assets-cache/
+
+# Editor and operating-system files
+.DS_Store
+.idea/
+.vscode/

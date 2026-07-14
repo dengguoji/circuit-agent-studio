@@ -1,0 +1,1813 @@
+:root {
+  color: #111827;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+.workspace {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.workspace.sidebarCollapsed {
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+}
+
+.workspace.resizingSidebar {
+  cursor: col-resize;
+  user-select: none;
+}
+
+.canvasWorkspace {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #d8e0ea;
+  background: #e7edf5;
+}
+
+.canvasToolbar {
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: minmax(170px, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #d8e0ea;
+  background: rgba(248, 250, 252, 0.94);
+  backdrop-filter: blur(18px);
+}
+
+.canvasToolbarTitle {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.canvasToolbarTitle span {
+  color: #111827;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.canvasToolbarTitle code {
+  color: #64748b;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+.canvasToolbarTitle em {
+  color: #94a3b8;
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.canvasToolbarStats,
+.canvasToolbarActions {
+  display: inline-flex;
+  align-items: center;
+}
+
+.canvasToolbarStats {
+  min-width: 0;
+  gap: 7px;
+  overflow: hidden;
+}
+
+.canvasToolbarStats span {
+  min-width: 0;
+  padding: 5px 9px;
+  border: 1px solid #dbe3ed;
+  border-radius: 999px;
+  color: #475569;
+  background: #ffffff;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.canvasToolbarActions {
+  gap: 8px;
+}
+
+.toolbarDivider {
+  width: 1px;
+  height: 26px;
+  background: #dbe3ed;
+}
+
+.canvasStage {
+  position: relative;
+  min-height: 0;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 244px minmax(0, 1fr);
+  overflow: hidden;
+  --component-panel-width: 244px;
+}
+
+.canvasViewport {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  z-index: 0;
+  background: #edf1f6;
+}
+
+.componentPanel {
+  min-width: 0;
+  min-height: 0;
+  z-index: 4;
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 12px;
+  border-right: 1px solid #d8e0ea;
+  background: rgba(248, 250, 252, 0.96);
+  backdrop-filter: blur(14px);
+}
+
+.componentPanelHeader,
+.placementControls,
+.inspectorHeader,
+.inspectorSegment {
+  display: flex;
+  align-items: center;
+}
+
+.componentPanelHeader,
+.inspectorHeader {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.componentPanelHeader span,
+.inspectorHeader span {
+  color: #111827;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.componentPanelHeader code,
+.placementControls code,
+.inspectorHeader code {
+  min-width: 0;
+  color: #64748b;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.componentSearch {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #d6dce5;
+  border-radius: 7px;
+  padding: 0 9px;
+  color: #111827;
+  background: #ffffff;
+}
+
+.componentSearch:focus,
+.propertyField input:focus,
+.propertyField select:focus {
+  outline: none;
+  border-color: #64748b;
+}
+
+.placementControls,
+.inspectorSegment {
+  gap: 6px;
+}
+
+.orientationButton {
+  height: 28px;
+  min-width: 34px;
+  border: 1px solid #dbe3ed;
+  border-radius: 7px;
+  color: #475569;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.orientationButton.active {
+  border-color: #111827;
+  color: #ffffff;
+  background: #111827;
+}
+
+.componentLibraryList {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 8px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.componentTile {
+  min-width: 0;
+  height: 86px;
+  border: 1px solid #dbe3ed;
+  border-radius: 8px;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 4px;
+  padding: 7px 6px;
+  color: #334155;
+  background: #ffffff;
+  cursor: grab;
+}
+
+.componentTile:hover,
+.componentTile.active {
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.componentTile:active {
+  cursor: grabbing;
+}
+
+.componentTile svg {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  display: block;
+}
+
+.componentTile span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.componentThumbnail {
+  color: currentColor;
+}
+
+.selectionInspector {
+  min-height: 0;
+  max-height: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding-top: 10px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.propertyList {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.coordinateEditor {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.coordinateEditor .panelEmpty {
+  grid-column: 1 / -1;
+}
+
+.coordinateField {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  align-items: center;
+}
+
+.coordinateField span {
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.coordinateField input {
+  width: 100%;
+  min-width: 0;
+  height: 30px;
+  border: 1px solid #d6dce5;
+  border-radius: 7px;
+  padding: 0 7px;
+  color: #0f172a;
+  background: #ffffff;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+.coordinateField input:disabled {
+  color: #94a3b8;
+  background: #f8fafc;
+}
+
+.coordinateField input:focus {
+  outline: none;
+  border-color: #64748b;
+}
+
+.propertyField {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 7px;
+  align-items: center;
+}
+
+.propertyField span {
+  min-width: 0;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.propertyField input,
+.propertyField select {
+  width: 100%;
+  min-width: 0;
+  height: 28px;
+  border: 1px solid #d6dce5;
+  border-radius: 6px;
+  color: #111827;
+  background: #ffffff;
+  font-size: 12px;
+}
+
+.propertyField input {
+  padding: 0 7px;
+}
+
+.panelEmpty,
+.panelError {
+  grid-column: 1 / -1;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.panelEmpty {
+  border: 1px dashed #cbd5e1;
+  color: #64748b;
+  text-align: center;
+}
+
+.panelEmpty.compact {
+  padding: 9px;
+}
+
+.panelError {
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  background: #fff1f2;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: default;
+  touch-action: none;
+  background: #edf1f6;
+}
+
+.canvas.selectTool {
+  cursor: default;
+}
+
+.canvas.wireTool {
+  cursor: crosshair;
+}
+
+.outsideCanvas {
+  fill: #eef2f7;
+}
+
+.paper {
+  fill: #ffffff;
+}
+
+.minorGridLine {
+  fill: none;
+  stroke: #e8eaee;
+  stroke-width: 1;
+}
+
+.majorGridLine {
+  fill: none;
+  stroke: #cfd5dd;
+  stroke-width: 1;
+}
+
+.canvasBounds {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 0;
+}
+
+.canvasClearFlash {
+  fill: #38bdf8;
+  pointer-events: none;
+  animation: clearCanvasFlash 420ms ease-out both;
+}
+
+.wire {
+  stroke: #111111;
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.activeWire {
+  stroke: #111111;
+}
+
+.draftWire {
+  stroke: #2563eb;
+  stroke-dasharray: 8 6;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.wireComponent {
+  color: #111111;
+}
+
+.activeWireComponent {
+  color: #111111;
+}
+
+.draftWireComponent {
+  color: #2563eb;
+  opacity: 0.72;
+  stroke-dasharray: 8 6;
+}
+
+.component {
+  color: #111111;
+  pointer-events: none;
+}
+
+.activeComponent {
+  color: #2563eb;
+  filter: url(#activeGlow);
+  animation: drawPulse 0.8s ease-out;
+}
+
+.componentText {
+  fill: currentColor;
+  stroke: none;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 600;
+  paint-order: stroke;
+}
+
+.connectionDebugLayer {
+  opacity: 0.68;
+}
+
+.connectionDot {
+  fill: #16a34a;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.connectionHintLayer,
+.wireHandleLayer,
+.issueMarkerLayer,
+.snapTargetLayer {
+  pointer-events: none;
+}
+
+.portHint {
+  fill: #16a34a;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+  opacity: 0.72;
+  vector-effect: non-scaling-stroke;
+}
+
+.wireHandle {
+  fill: #2563eb;
+  stroke: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.snapTarget {
+  fill: #2563eb;
+  stroke: none;
+  opacity: 0.9;
+  vector-effect: non-scaling-stroke;
+}
+
+.snapTarget.component-port {
+  fill: #16a34a;
+}
+
+.snapTarget.wire-segment {
+  fill: #2563eb;
+}
+
+.issueMarker circle {
+  fill: rgba(239, 68, 68, 0.16);
+  stroke: #dc2626;
+  stroke-width: 1.3;
+  vector-effect: non-scaling-stroke;
+}
+
+.issueMarker path {
+  fill: none;
+  stroke: #dc2626;
+  stroke-linecap: round;
+  stroke-width: 1.3;
+  vector-effect: non-scaling-stroke;
+}
+
+.junction {
+  fill: #111111;
+  stroke: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.activeJunction {
+  fill: #111111;
+}
+
+.edgeGlow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: var(--component-panel-width);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 420ms ease;
+  --edge-angle: 0deg;
+}
+
+.edgeGlow.active {
+  opacity: 1;
+}
+
+.edgeGlow::before,
+.edgeGlow::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 18px;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--edge-angle) at 50% 50%,
+    #38bdf8 0deg,
+    #67e8f9 42deg,
+    #a78bfa 92deg,
+    #f0abfc 146deg,
+    #fb7185 202deg,
+    #facc15 258deg,
+    #34d399 314deg,
+    #38bdf8 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation:
+    edgeBeltFlow 8.8s linear infinite,
+    edgeBeltLiquid 6.4s ease-in-out infinite;
+}
+
+.edgeGlow::before {
+  opacity: 0.86;
+  filter: blur(0.35px) saturate(1.38);
+}
+
+.edgeGlow::after {
+  inset: 7px;
+  padding: 6px;
+  opacity: 0.26;
+  filter: blur(10px) saturate(1.65);
+  animation:
+    edgeBeltFlow 8.8s linear infinite,
+    edgeBeltLiquidSoft 7.6s ease-in-out infinite;
+}
+
+.edgeGlow span {
+  display: none;
+}
+
+.iconButton,
+.primaryIconButton {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #d6dce5;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #334155;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.iconButton:hover,
+.primaryIconButton:hover {
+  border-color: #94a3b8;
+}
+
+.iconButton:disabled,
+.primaryIconButton:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.primaryIconButton {
+  border-color: #111827;
+  color: #ffffff;
+  background: #111827;
+}
+
+.iconButton.subtle {
+  border-color: transparent;
+  background: transparent;
+}
+
+.iconButton.danger {
+  color: #991b1b;
+}
+
+.iconButton.activeTool {
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.agentPanel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid #d8e0ea;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+}
+
+.sidebarResizeHandle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 14px;
+  cursor: col-resize;
+}
+
+.sidebarResizeHandle::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  background: transparent;
+  transition:
+    background 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.sidebarResizeHandle:hover::after,
+.workspace.resizingSidebar .sidebarResizeHandle::after {
+  background: #60a5fa;
+  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.2);
+}
+
+.agentPanel.collapsed {
+  align-items: center;
+}
+
+.agentHeader {
+  position: relative;
+  min-height: 58px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.agentPanel.collapsed .agentHeader {
+  width: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.agentPanel.collapsed .agentTitle span {
+  display: none;
+}
+
+.agentPanel.collapsed .agentTitle {
+  gap: 0;
+}
+
+.agentPanel.collapsed .agentHeader .iconButton {
+  position: static;
+}
+
+.agentTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #111827;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.agentTabs {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  background: rgba(248, 250, 252, 0.72);
+}
+
+.agentTab,
+.debugSwitch {
+  height: 30px;
+  min-width: 0;
+  border: 1px solid #dbe3ed;
+  border-radius: 999px;
+  padding: 0 11px;
+  color: #475569;
+  background: rgba(255, 255, 255, 0.76);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.agentTab:hover,
+.debugSwitch:hover {
+  border-color: #94a3b8;
+}
+
+.agentTab.active {
+  border-color: #111827;
+  color: #ffffff;
+  background: #111827;
+}
+
+.debugSwitch {
+  margin-left: auto;
+}
+
+.debugSwitch.active {
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.agentBody {
+  min-height: 0;
+  padding: 14px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+}
+
+.message {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 9px;
+  align-items: start;
+  padding: 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.message p {
+  margin: 0;
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.loopStatusPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 10px 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.modelPickerPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.modelPickerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modelPickerHeader span {
+  color: #111827;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.modelPickerHeader code,
+.modelPickerNote {
+  color: #64748b;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+.modelPickerPanel select {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #d6dce5;
+  border-radius: 7px;
+  color: #111827;
+  background: #ffffff;
+}
+
+.modelPickerPanel select:focus {
+  outline: none;
+  border-color: #64748b;
+}
+
+.modelPickerNote.error {
+  color: #b91c1c;
+}
+
+.loopStatusHeader,
+.loopStatusStats,
+.loopRoundList {
+  display: flex;
+  align-items: center;
+}
+
+.loopStatusHeader {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.loopStatusHeader span {
+  color: #111827;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.loopStatusHeader code {
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: #0f172a;
+  background: #e0f2fe;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+.loopStatusStats {
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.loopStatusStats span {
+  min-width: 0;
+  padding: 4px 7px;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  color: #475569;
+  background: #f8fafc;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.loopRoundList {
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.loopRoundList div {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 7px;
+  border-radius: 7px;
+  color: #334155;
+  background: #f1f5f9;
+  font-size: 11px;
+}
+
+.loopRoundList code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  color: #2563eb;
+}
+
+.imageChip {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 9px;
+  align-items: center;
+  padding: 7px 9px;
+  border: 1px solid #dbe4ee;
+  border-radius: 7px;
+  color: #334155;
+  background: #f8fafc;
+  font-size: 13px;
+}
+
+.imageChip img {
+  width: 42px;
+  height: 32px;
+  border-radius: 5px;
+  object-fit: cover;
+  background: #ffffff;
+}
+
+.imageChip span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.imageChip code {
+  color: #64748b;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+.errorBanner,
+.issueList {
+  padding: 10px 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.errorBanner {
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  background: #fff1f2;
+}
+
+.issueList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid #fde68a;
+  color: #854d0e;
+  background: #fffbeb;
+}
+
+.traceList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emptyTrace {
+  padding: 16px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  color: #64748b;
+  text-align: center;
+  font-size: 13px;
+}
+
+.traceItem {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.traceItem.active {
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
+.traceItem.error {
+  border-color: #fecaca;
+  background: #fff1f2;
+}
+
+.traceItem.error span,
+.traceItem.error code {
+  color: #991b1b;
+}
+
+.traceItem span {
+  color: #111827;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.traceItem code {
+  color: #475569;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+.agentComposer {
+  padding: 12px 14px 14px;
+  border-top: 1px solid #e5e7eb;
+  background: rgba(248, 250, 252, 0.94);
+}
+
+.composerShell {
+  min-height: 48px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 38px;
+  align-items: end;
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid #d6dce5;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.composerShell:focus-within {
+  border-color: #94a3b8;
+  box-shadow:
+    0 0 0 3px rgba(148, 163, 184, 0.18),
+    0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+.composerShell textarea {
+  width: 100%;
+  min-height: 34px;
+  max-height: 96px;
+  resize: none;
+  border: 0;
+  padding: 8px 2px;
+  color: #111827;
+  background: transparent;
+  line-height: 1.35;
+}
+
+.composerShell textarea:focus {
+  outline: none;
+}
+
+.composerAttachButton,
+.composerSendButton {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.composerAttachButton {
+  color: #475569;
+  background: #f8fafc;
+}
+
+.composerAttachButton:hover {
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.composerSendButton {
+  color: #ffffff;
+  background: #111827;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
+}
+
+.composerSendButton:hover {
+  background: #0f172a;
+}
+
+.composerSendButton:disabled {
+  opacity: 0.46;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.jsonViewer {
+  color: #cbd5e1;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.jsonBranch {
+  margin: 1px 0;
+}
+
+.jsonBranch summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #e2e8f0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.jsonBranch summary::-webkit-details-marker {
+  display: none;
+}
+
+.jsonBranch summary::before {
+  content: ">";
+  width: 12px;
+  color: #64748b;
+  transform: rotate(0deg);
+  transition: transform 120ms ease;
+}
+
+.jsonBranch[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.jsonChildren {
+  margin-left: 18px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.jsonRow {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.jsonKey {
+  color: #7dd3fc;
+}
+
+.jsonString {
+  color: #86efac;
+}
+
+.jsonNumber {
+  color: #fbbf24;
+}
+
+.jsonBoolean {
+  color: #c084fc;
+}
+
+.jsonNull,
+.jsonMuted {
+  color: #94a3b8;
+}
+
+.jsonPunctuation {
+  color: #cbd5e1;
+}
+
+@keyframes drawPulse {
+  0% {
+    stroke-width: 3;
+  }
+  100% {
+    stroke-width: 1;
+  }
+}
+
+@keyframes clearCanvasFlash {
+  0% {
+    opacity: 0.24;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dotPulse {
+  0% {
+    r: 10;
+  }
+  100% {
+    r: 6;
+  }
+}
+
+@keyframes snapTargetPulse {
+  0%,
+  100% {
+    opacity: 0.56;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@property --edge-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes edgeBeltFlow {
+  0% {
+    --edge-angle: 0deg;
+  }
+  100% {
+    --edge-angle: 360deg;
+  }
+}
+
+@keyframes edgeBeltLiquid {
+  0% {
+    border-radius: 18px 14px 20px 12px;
+    filter: blur(0.35px) saturate(1.38);
+    opacity: 0.78;
+  }
+  50% {
+    border-radius: 13px 22px 15px 24px;
+    filter: blur(0.9px) saturate(1.58);
+    opacity: 0.96;
+  }
+  100% {
+    border-radius: 18px 14px 20px 12px;
+    filter: blur(0.35px) saturate(1.38);
+    opacity: 0.78;
+  }
+}
+
+@keyframes edgeBeltLiquidSoft {
+  0% {
+    border-radius: 24px 18px 26px 16px;
+    opacity: 0.2;
+  }
+  50% {
+    border-radius: 17px 30px 20px 28px;
+    opacity: 0.34;
+  }
+  100% {
+    border-radius: 24px 18px 26px 16px;
+    opacity: 0.2;
+  }
+}
+
+/* Canvas-first workspace -------------------------------------------------- */
+.workspace.cw-workspace-shell {
+  position: relative;
+  display: block;
+  grid-template-columns: none;
+  overflow: hidden;
+  background: #e9edf2;
+}
+
+.workspace.cw-workspace-shell > .agentPanel {
+  display: none;
+}
+
+.workspace.cw-workspace-shell .canvasWorkspace {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: #e9edf2;
+}
+
+.workspace.cw-workspace-shell .canvasToolbar {
+  position: absolute;
+  z-index: 32;
+  top: 18px;
+  left: 50%;
+  width: max-content;
+  max-width: min(760px, calc(100vw - 176px));
+  min-height: 52px;
+  transform: translateX(-50%);
+  grid-template-columns: minmax(130px, auto) auto auto;
+  gap: 8px;
+  padding: 7px 8px 7px 14px;
+  overflow: visible;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 18px;
+  background: rgba(249, 250, 252, 0.84);
+  box-shadow: 0 18px 46px rgba(28, 36, 50, 0.12), 0 3px 10px rgba(28, 36, 50, 0.06);
+  backdrop-filter: saturate(1.35) blur(24px);
+  transition: left 220ms ease, opacity 180ms ease, transform 220ms ease;
+}
+
+.workspace.cw-workspace-shell.workspaceDockExpanded .canvasToolbar {
+  left: calc(50% + min(210px, 15vw));
+}
+
+.workspace.cw-workspace-shell .canvasToolbarTitle span {
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.workspace.cw-workspace-shell .canvasToolbarTitle em,
+.workspace.cw-workspace-shell .canvasToolbarStats span:nth-child(-n + 3) {
+  display: none;
+}
+
+.workspace.cw-workspace-shell .canvasToolbarStats span {
+  min-width: max-content;
+  border: 0;
+  padding: 5px 8px;
+  background: rgba(95, 109, 132, 0.08);
+  font-size: 11px;
+}
+
+.workspace.cw-workspace-shell .canvasToolbarActions {
+  gap: 4px;
+}
+
+.workspace.cw-workspace-shell .canvasToolbar .iconButton,
+.workspace.cw-workspace-shell .canvasToolbar .primaryIconButton {
+  width: 40px;
+  height: 40px;
+  border-color: transparent;
+  border-radius: 12px;
+  background: transparent;
+}
+
+.workspace.cw-workspace-shell .canvasToolbar .iconButton:hover,
+.workspace.cw-workspace-shell .canvasToolbar .primaryIconButton:hover {
+  background: rgba(90, 103, 126, 0.09);
+}
+
+.workspace.cw-workspace-shell .canvasToolbar .iconButton.activeTool {
+  color: #246bfd;
+  background: rgba(36, 107, 253, 0.11);
+}
+
+.workspace.cw-workspace-shell .canvasStage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  --component-panel-width: 0px;
+}
+
+.workspace.cw-workspace-shell .canvasViewport {
+  position: absolute;
+  inset: 0;
+  background: #edf1f5;
+}
+
+.workspace.cw-workspace-shell .componentPanel {
+  position: absolute;
+  z-index: 28;
+  top: 18px;
+  right: auto;
+  bottom: 18px;
+  left: 18px;
+  width: clamp(360px, 30vw, 420px);
+  padding: 64px 13px 13px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 22px;
+  background: rgba(249, 250, 252, 0.84);
+  box-shadow: 0 22px 65px rgba(28, 36, 50, 0.13), 0 4px 14px rgba(28, 36, 50, 0.06);
+  backdrop-filter: saturate(1.35) blur(28px);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 10px;
+  transition: width 180ms ease, height 180ms ease, border-radius 180ms ease;
+}
+
+.workspace.cw-workspace-shell .componentPanel:not(.collapsed) {
+  transform-origin: top left;
+  animation: cw-dock-expand-from-rail 220ms cubic-bezier(0.22, 0.78, 0.24, 1) both;
+}
+
+.workspace.cw-workspace-shell .componentPanel.collapsed {
+  display: none;
+}
+
+.workspace.cw-workspace-shell .componentPanelHeader {
+  min-width: 0;
+  min-height: 40px;
+  gap: 7px;
+}
+
+.workspace.cw-workspace-shell .componentPanel.collapsed .componentPanelHeader {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.componentPanelTabs {
+  min-width: 0;
+  height: 40px;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid rgba(81, 94, 117, 0.13);
+  border-radius: 12px;
+  background: rgba(90, 103, 126, 0.06);
+}
+
+.componentPanelTabs button,
+.componentPanelCollapse {
+  min-width: 0;
+  min-height: 40px;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 10px;
+  color: #667084;
+  background: transparent;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 680;
+}
+
+.componentPanelTabs button {
+  min-height: 32px;
+  padding: 0 7px;
+}
+
+.componentPanelTabs button.active {
+  color: #1d5bd1;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 1px 3px rgba(28, 36, 50, 0.07);
+}
+
+.componentPanelTabs button code {
+  padding: 2px 4px;
+  border-radius: 999px;
+  color: inherit;
+  background: rgba(90, 103, 126, 0.08);
+  font-size: 9px;
+}
+
+.componentPanelCollapse {
+  width: 40px;
+  flex: 0 0 40px;
+}
+
+.componentPanelCollapse:hover {
+  color: #18202c;
+  background: rgba(90, 103, 126, 0.08);
+}
+
+.componentLibraryControls {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 10px;
+}
+
+.workspace.cw-workspace-shell .componentPanel[data-tab="library"] .selectionInspector,
+.workspace.cw-workspace-shell .componentPanel[data-tab="inspector"] .componentLibraryControls,
+.workspace.cw-workspace-shell .componentPanel.collapsed > :not(.componentPanelHeader) {
+  display: none;
+}
+
+.workspace.cw-workspace-shell .componentPanel[data-tab="inspector"] .selectionInspector {
+  max-height: none;
+  padding-top: 3px;
+  overflow: hidden;
+  border-top: 0;
+}
+
+.workspace.cw-workspace-shell .componentSearch,
+.workspace.cw-workspace-shell .coordinateField input,
+.workspace.cw-workspace-shell .propertyField input,
+.workspace.cw-workspace-shell .propertyField select {
+  min-height: 40px;
+  border-color: rgba(81, 94, 117, 0.16);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.workspace.cw-workspace-shell .orientationButton {
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.workspace.cw-workspace-shell .componentTile {
+  border-color: rgba(81, 94, 117, 0.13);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.workspace.cw-workspace-shell .componentTile:hover,
+.workspace.cw-workspace-shell .componentTile.active {
+  border-color: rgba(36, 107, 253, 0.28);
+  color: #246bfd;
+  background: rgba(36, 107, 253, 0.08);
+}
+
+.workspace.cw-workspace-shell .edgeGlow {
+  display: none;
+}
+
+.cw-agent-settings {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px;
+  align-items: center;
+}
+
+.cw-agent-settings label {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 7px;
+  align-items: center;
+  color: #697386;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.cw-agent-settings select {
+  min-width: 0;
+  height: 34px;
+  border: 1px solid rgba(81, 94, 117, 0.16);
+  border-radius: 10px;
+  padding: 0 8px;
+  color: #18202c;
+  background: rgba(255, 255, 255, 0.62);
+  font-size: 11px;
+}
+
+.cw-run-state {
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: #697386;
+  background: rgba(90, 103, 126, 0.08);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.cw-run-state.is-running {
+  color: #1d5bd1;
+  background: rgba(36, 107, 253, 0.11);
+}
+
+.cw-inline-error {
+  grid-column: 1 / -1;
+  padding: 8px 10px;
+  border: 1px solid rgba(190, 49, 68, 0.16);
+  border-radius: 10px;
+  color: #a22338;
+  background: rgba(255, 237, 240, 0.72);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.cw-undo-turn {
+  grid-column: 1 / -1;
+  min-height: 36px;
+  border: 1px solid rgba(36, 107, 253, 0.2);
+  border-radius: 11px;
+  color: #1d5bd1;
+  background: rgba(36, 107, 253, 0.08);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 680;
+}
+
+@media (max-width: 1180px) {
+  .workspace.cw-workspace-shell .canvasToolbar {
+    top: 10px;
+    right: 10px;
+    left: 118px;
+    width: auto;
+    max-width: none;
+    transform: none;
+  }
+
+  .workspace.cw-workspace-shell.workspaceDockExpanded .canvasToolbar {
+    left: 448px;
+  }
+
+  .workspace.cw-workspace-shell .componentPanel {
+    top: 10px;
+    left: 10px;
+    right: auto;
+    bottom: 10px;
+    width: min(420px, calc(100vw - 20px));
+    height: auto;
+    padding-top: 64px;
+  }
+
+  .workspace.cw-workspace-shell .componentLibraryList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace.cw-workspace-shell *,
+  .workspace.cw-workspace-shell *::before,
+  .workspace.cw-workspace-shell *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  .canvasToolbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .canvasToolbarStats {
+    order: 3;
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 760px) {
+  .workspace,
+  .workspace.sidebarCollapsed {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(250px, 38vh) minmax(0, 1fr);
+  }
+
+  .workspace.sidebarCollapsed {
+    grid-template-rows: 72px minmax(0, 1fr);
+  }
+
+  .agentPanel {
+    border-right: 0;
+    border-bottom: 1px solid #d8e0ea;
+  }
+
+  .sidebarResizeHandle {
+    display: none;
+  }
+
+  .agentPanel.collapsed .agentHeader {
+    min-height: 72px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 14px;
+  }
+
+  .agentPanel.collapsed .agentTitle span {
+    display: inline;
+  }
+
+  .agentTabs {
+    overflow-x: auto;
+  }
+
+  .canvasToolbar {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .canvasToolbarActions,
+  .canvasToolbarStats {
+    flex-wrap: wrap;
+  }
+
+}
+
+/* Canvas-first mobile toolbar: keep primary controls on one compact row. */
+@media (max-width: 760px) {
+  .workspace.cw-workspace-shell .canvasToolbar {
+    top: 10px;
+    right: 10px;
+    left: 118px;
+    width: auto;
+    max-width: none;
+    min-height: 52px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 4px;
+    padding: 5px 7px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    transform: none;
+    scrollbar-width: none;
+  }
+
+  .workspace.cw-workspace-shell .canvasToolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .workspace.cw-workspace-shell.workspaceDockExpanded .canvasToolbar {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+  }
+
+  .workspace.cw-workspace-shell .canvasToolbarTitle,
+  .workspace.cw-workspace-shell .toolbarDivider {
+    display: none;
+  }
+
+  .workspace.cw-workspace-shell .canvasToolbarStats {
+    order: 2;
+    flex: 0 0 auto;
+  }
+
+  .workspace.cw-workspace-shell .canvasToolbarActions {
+    order: 1;
+    flex-wrap: nowrap;
+    gap: 2px;
+  }
+
+  .workspace.cw-workspace-shell .canvasToolbar .iconButton,
+  .workspace.cw-workspace-shell .canvasToolbar .primaryIconButton,
+  .workspace.cw-workspace-shell .cw-toolbar-overflow,
+  .workspace.cw-workspace-shell .cw-toolbar-overflow > summary {
+    width: 38px;
+    min-width: 38px;
+    height: 40px;
+  }
+
+  .workspace.cw-workspace-shell .componentPanel.collapsed {
+    top: 72px;
+    right: 10px;
+    bottom: auto;
+    left: auto;
+  }
+
+  .workspace.cw-workspace-shell .componentPanel:not(.collapsed) {
+    top: 10px;
+    right: auto;
+    bottom: 10px;
+    left: 10px;
+    width: min(420px, calc(100vw - 20px));
+    height: auto;
+  }
+
+  .workspace.cw-workspace-shell .componentLibraryList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

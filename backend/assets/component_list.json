@@ -1,0 +1,334 @@
+[
+  {
+    "id": 0,
+    "name": "4017 Decade Counter"
+  },
+  {
+    "id": 1,
+    "name": "4510 BCD Counter"
+  },
+  {
+    "id": 2,
+    "name": "555 Oscillator"
+  },
+  {
+    "id": 3,
+    "name": "7 Segment Display"
+  },
+  {
+    "id": 4,
+    "name": "AC-DC Converter"
+  },
+  {
+    "id": 5,
+    "name": "Adder"
+  },
+  {
+    "id": 6,
+    "name": "Alternative Diode"
+  },
+  {
+    "id": 7,
+    "name": "Alternative Ground"
+  },
+  {
+    "id": 8,
+    "name": "Antenna"
+  },
+  {
+    "id": 9,
+    "name": "Arduino Nano"
+  },
+  {
+    "id": 10,
+    "name": "Arduino Uno"
+  },
+  {
+    "id": 11,
+    "name": "BCD Decoder"
+  },
+  {
+    "id": 12,
+    "name": "Bipolar Stepper Motor"
+  },
+  {
+    "id": 13,
+    "name": "Bridge Rectifier"
+  },
+  {
+    "id": 14,
+    "name": "Bus"
+  },
+  {
+    "id": 15,
+    "name": "Buzzer"
+  },
+  {
+    "id": 16,
+    "name": "Capacitor"
+  },
+  {
+    "id": 17,
+    "name": "Connector"
+  },
+  {
+    "id": 18,
+    "name": "Counter (4-bit)"
+  },
+  {
+    "id": 19,
+    "name": "Crystal"
+  },
+  {
+    "id": 20,
+    "name": "D Flip-Flop"
+  },
+  {
+    "id": 21,
+    "name": "Demultiplexer"
+  },
+  {
+    "id": 22,
+    "name": "Digital Buffer"
+  },
+  {
+    "id": 23,
+    "name": "Diode"
+  },
+  {
+    "id": 24,
+    "name": "External Connection"
+  },
+  {
+    "id": 25,
+    "name": "Flow"
+  },
+  {
+    "id": 26,
+    "name": "Frequency filter"
+  },
+  {
+    "id": 27,
+    "name": "Fuse"
+  },
+  {
+    "id": 28,
+    "name": "Generator"
+  },
+  {
+    "id": 29,
+    "name": "HD44780"
+  },
+  {
+    "id": 30,
+    "name": "Hall Effect Sensor"
+  },
+  {
+    "id": 31,
+    "name": "Heater"
+  },
+  {
+    "id": 32,
+    "name": "IR Sensor"
+  },
+  {
+    "id": 33,
+    "name": "Inductor"
+  },
+  {
+    "id": 34,
+    "name": "Integrated Circuit"
+  },
+  {
+    "id": 35,
+    "name": "Integrated Circuit 2"
+  },
+  {
+    "id": 36,
+    "name": "Integrated Circuit 3"
+  },
+  {
+    "id": 37,
+    "name": "Integrated Circuit 4x25"
+  },
+  {
+    "id": 38,
+    "name": "JK Flip-Flop"
+  },
+  {
+    "id": 39,
+    "name": "Josephson Junction"
+  },
+  {
+    "id": 40,
+    "name": "Label"
+  },
+  {
+    "id": 41,
+    "name": "Lamp"
+  },
+  {
+    "id": 42,
+    "name": "Logic Gate"
+  },
+  {
+    "id": 43,
+    "name": "Logic Gate (3 Input)"
+  },
+  {
+    "id": 44,
+    "name": "Meter"
+  },
+  {
+    "id": 45,
+    "name": "Microcontroller"
+  },
+  {
+    "id": 46,
+    "name": "Microphone"
+  },
+  {
+    "id": 47,
+    "name": "Motor"
+  },
+  {
+    "id": 48,
+    "name": "Multi-Pole Switch"
+  },
+  {
+    "id": 49,
+    "name": "Multiplexer"
+  },
+  {
+    "id": 50,
+    "name": "Op Amp"
+  },
+  {
+    "id": 51,
+    "name": "Oscilloscope"
+  },
+  {
+    "id": 52,
+    "name": "Phototransistor"
+  },
+  {
+    "id": 53,
+    "name": "Photovoltaic Cell"
+  },
+  {
+    "id": 54,
+    "name": "Pump"
+  },
+  {
+    "id": 55,
+    "name": "QT Py"
+  },
+  {
+    "id": 56,
+    "name": "RGB LED"
+  },
+  {
+    "id": 57,
+    "name": "Raspberry Pi"
+  },
+  {
+    "id": 58,
+    "name": "Raspberry Pi A+ / B+, 2 and Zero GPIO"
+  },
+  {
+    "id": 59,
+    "name": "Raspberry Pi B+ GPIO"
+  },
+  {
+    "id": 60,
+    "name": "Real Time Clock"
+  },
+  {
+    "id": 61,
+    "name": "Reed Switch"
+  },
+  {
+    "id": 62,
+    "name": "Relay"
+  },
+  {
+    "id": 63,
+    "name": "Relay 2"
+  },
+  {
+    "id": 64,
+    "name": "Resistor"
+  },
+  {
+    "id": 65,
+    "name": "Servo Motor"
+  },
+  {
+    "id": 66,
+    "name": "Signal Generator"
+  },
+  {
+    "id": 67,
+    "name": "Solid State Relay"
+  },
+  {
+    "id": 68,
+    "name": "Source"
+  },
+  {
+    "id": 69,
+    "name": "Speaker"
+  },
+  {
+    "id": 70,
+    "name": "Standard Diode"
+  },
+  {
+    "id": 71,
+    "name": "Stepper Motor"
+  },
+  {
+    "id": 72,
+    "name": "Switch"
+  },
+  {
+    "id": 73,
+    "name": "T Flip-Flop"
+  },
+  {
+    "id": 74,
+    "name": "Thyristor"
+  },
+  {
+    "id": 75,
+    "name": "Transformer"
+  },
+  {
+    "id": 76,
+    "name": "Transistor"
+  },
+  {
+    "id": 77,
+    "name": "Triac"
+  },
+  {
+    "id": 78,
+    "name": "US Resistor"
+  },
+  {
+    "id": 79,
+    "name": "Ultrasonic Distance Sensor"
+  },
+  {
+    "id": 80,
+    "name": "VS1053"
+  },
+  {
+    "id": 81,
+    "name": "Voltage Regulator"
+  },
+  {
+    "id": 82,
+    "name": "Wire"
+  }
+]

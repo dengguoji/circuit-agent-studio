@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software in research, teaching, or a publication, please cite it using these metadata."
+title: "Circuit Agent Studio"
+type: software
+authors:
+  - name: "Sumal"
+version: 0.1.0
+license: GPL-2.0-only
+abstract: "An editable circuit-diagram workspace driven by a multi-turn AI agent."
+keywords:
+  - circuit diagram
+  - AI agent
+  - editable canvas
+  - OpenAI Responses API
+  - LangGraph
